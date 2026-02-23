@@ -164,13 +164,13 @@ async function pollTransaction(
     }
 
     if (result?.status === "FAILED") {
-      throw new Error(`Transaction ${hash} failed on-chain`);
+      throw new Error(`Transaction failed on-chain: ${result.errorResultXdr || "unknown error"}`);
     }
 
     // NOT_FOUND means still pending — keep polling
     await new Promise((resolve) => setTimeout(resolve, intervalMs));
   }
 
-  // Exhausted attempts — assume tx landed (it was accepted by the network)
-  return { status: "SUBMITTED" };
+  // Exhausted polling attempts — transaction not yet confirmed
+  throw new Error("Transaction confirmation timed out. It may still be pending — check your balance in a moment.");
 }

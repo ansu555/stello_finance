@@ -99,8 +99,17 @@ export default function StakeCard() {
       )}
 
       {lastTxHash && (
-        <div className="banner-success">
-          <p className="text-xs text-green-400">Staked successfully</p>
+        <div className="banner-success space-y-1">
+          <p className="text-xs text-green-400">Staked successfully — sXLM minted to your wallet</p>
+          <a
+            href={`https://stellar.expert/explorer/public/tx/${lastTxHash}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-[10px] font-mono truncate"
+            style={{ color: '#4ade80', opacity: 0.7 }}
+          >
+            {lastTxHash}
+          </a>
         </div>
       )}
 
