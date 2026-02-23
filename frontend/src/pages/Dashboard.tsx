@@ -15,10 +15,10 @@ import { useProtocol } from '../hooks/useProtocol';
 
 /* ── Stellar brand palette ────────────────────────────────────────────────── */
 const Y  = '#F5CF00';   // Stellar yellow
-const YD = '#c9a900';   // yellow dark (hover)
+const YD = '#D4A800';   // yellow dark (hover)
 const B  = '#000000';   // black bg
-const S  = '#111111';   // surface (matches bg-surface)
-const BR = '#222222';   // border (matches border-border)
+const S  = '#0d0d0d';   // surface
+const BR = '#1e1e1e';   // border
 const W  = '#ffffff';   // white
 const T2 = '#a3a3a3';   // neutral-400 secondary text
 const T3 = '#525252';   // neutral-600 muted text
@@ -61,39 +61,52 @@ function StellarMark({ size = 28, color = W }: { size?: number; color?: string }
   );
 }
 
-/* ── Hero visual: 3D rotating Stellar mark ───────────────────────────────── */
+/* ── Hero visual: Stello mascot ──────────────────────────────────────────── */
 function StellarHeroVisual({ aprVal }: { aprVal: string }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
-      {/* 3D rotating mark */}
-      <div style={{ position: 'relative' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
+      {/* Mascot with float animation + yellow glow halo */}
+      <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
+        {/* Radial glow behind mascot */}
         <div style={{
-          position: 'absolute', inset: -24,
-          background: `radial-gradient(circle, ${Y}18 0%, transparent 70%)`,
-          borderRadius: '50%',
+          position: 'absolute',
+          bottom: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: 220,
+          height: 80,
+          background: `radial-gradient(ellipse, ${Y}22 0%, transparent 70%)`,
+          filter: 'blur(12px)',
+          pointerEvents: 'none',
         }} />
-        <div style={{ animation: 'stellar-float 4s ease-in-out infinite' }}>
-          <div style={{ animation: 'stellar-rotate 10s linear infinite', transformStyle: 'preserve-3d' }}>
-            <svg width="160" height="160" viewBox="0 0 160 160" fill="none">
-              <circle cx="80" cy="80" r="78" stroke={BR} strokeWidth="1" />
-              <circle cx="80" cy="80" r="60" stroke="#1a1a1a" strokeWidth="1" fill="#0a0a0a" />
-              {/* Stellar path scaled to fit */}
-              <path
-                d="M122.2 52.8l-7.85 3.9-67.1 33.45a32 32 0 01-.35-5A32.5 32.5 0 0195 57.5l8.7-4.35 1.7-.85A40 40 0 0040 80a40.5 40.5 0 00.5 6.25L26 93.55v8.7l17.15-8.55a40 40 0 0075.6-12.4l11.25-5.6V67l-12.8 6.4A40.3 40.3 0 00120.9 65l12.45-6.25v-8.65zM80 112.5a32.5 32.5 0 01-30-19.95l67.5-33.6A32.5 32.5 0 0180 112.5z"
-                fill={Y}
-              />
-            </svg>
-          </div>
-        </div>
+        <img
+          src="/mascot.jpeg"
+          alt="Stello mascot"
+          style={{
+            height: 400,
+            width: 'auto',
+            objectFit: 'contain',
+            animation: 'stellar-float 4s ease-in-out infinite',
+            display: 'block',
+            position: 'relative',
+            zIndex: 1,
+            // mascot has black bg — blend it into the dark page
+            mixBlendMode: 'screen',
+          }}
+        />
       </div>
 
-      {/* Stats under the visual */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, width: '100%', background: BR, border: `1px solid ${BR}`, borderRadius: 12, overflow: 'hidden' }}>
+      {/* Stats strip below mascot */}
+      <div style={{
+        display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1,
+        width: '100%', background: BR,
+        border: `1px solid ${BR}`, borderRadius: 12, overflow: 'hidden',
+      }}>
         {[
           { label: 'APR', value: aprVal },
           { label: 'Network', value: 'Stellar' },
         ].map((s) => (
-          <div key={s.label} style={{ background: S, padding: '16px 20px', textAlign: 'center' }}>
+          <div key={s.label} style={{ background: 'rgba(13,13,13,0.9)', padding: '16px 20px', textAlign: 'center' }}>
             <p style={{ fontSize: 18, fontWeight: 700, color: s.label === 'APR' ? Y : W, marginBottom: 2 }}>
               {s.value}
             </p>
@@ -257,10 +270,10 @@ export default function Dashboard() {
   };
 
   return (
-    <div style={{ background: B, color: W, minHeight: '100vh' }}>
+    <div style={{ background: 'transparent', color: W, minHeight: '100vh' }}>
 
       {/* ══ HERO ═══════════════════════════════════════════════════════ */}
-      <section style={{ ...sectionPad(72), borderBottom: `1px solid ${BR}` }}>
+      <section style={{ ...sectionPad(72), borderBottom: `1px solid ${BR}`, background: 'transparent' }}>
         <div style={wrap()}>
           <div className="lido-hero-grid">
 
@@ -346,7 +359,7 @@ export default function Dashboard() {
       </section>
 
       {/* ══ STATS STRIP (Lido — plain numbers, border dividers) ════════ */}
-      <section style={{ background: S, borderBottom: `1px solid ${BR}` }}>
+      <section style={{ background: 'rgba(13,13,13,0.85)', borderBottom: `1px solid ${BR}` }}>
         <div style={{ ...wrap(), padding: '0 24px' }}>
           <div className="lido-stat-strip">
             {[
@@ -400,7 +413,7 @@ export default function Dashboard() {
             {/* Right — formula */}
             <div className="lido-reveal" style={{
               animationDelay: '100ms',
-              background: S, border: `1px solid ${BR}`, borderRadius: 8, padding: 28,
+              background: 'rgba(13,13,13,0.85)', border: `1px solid ${BR}`, borderRadius: 8, padding: 28,
             }}>
               <p style={{ fontSize: 10, color: T3, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 20 }}>
                 Exchange Rate Model
@@ -433,7 +446,7 @@ export default function Dashboard() {
       </section>
 
       {/* ══ PROTOCOL FEATURES — numbered list ═══════════════════════════ */}
-      <section style={{ ...sectionPad(), background: S, ...divider, borderBottom: `1px solid ${BR}` }}>
+      <section style={{ ...sectionPad(), background: 'rgba(13,13,13,0.85)', ...divider, borderBottom: `1px solid ${BR}` }}>
         <div style={wrap()}>
           <p style={yl}>5 Milestones · Fully built</p>
           <h2 style={{ ...sh, marginBottom: 40 }}>Protocol Features</h2>
@@ -511,7 +524,7 @@ export default function Dashboard() {
       </section>
 
       {/* ══ VALIDATORS ══════════════════════════════════════════════════ */}
-      <section style={{ ...sectionPad(), background: S, ...divider, borderBottom: `1px solid ${BR}` }}>
+      <section style={{ ...sectionPad(), background: 'rgba(13,13,13,0.85)', ...divider, borderBottom: `1px solid ${BR}` }}>
         <div style={wrap()}>
           <div className="lido-two-col">
             <div className="lido-reveal">
@@ -615,7 +628,7 @@ export default function Dashboard() {
       </section>
 
       {/* ══ CTA ═════════════════════════════════════════════════════════ */}
-      <section style={{ ...sectionPad(96), background: S, ...divider, borderBottom: `1px solid ${BR}` }}>
+      <section style={{ ...sectionPad(96), background: 'rgba(13,13,13,0.85)', ...divider, borderBottom: `1px solid ${BR}` }}>
         <div style={{ ...wrap(600), textAlign: 'center' }}>
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
             <div style={{
@@ -667,7 +680,7 @@ export default function Dashboard() {
       </section>
 
       {/* ══ FOOTER ══════════════════════════════════════════════════════ */}
-      <footer style={{ borderTop: `1px solid ${BR}`, padding: '48px 0 36px', background: B }}>
+      <footer style={{ borderTop: `1px solid ${BR}`, padding: '48px 0 36px', background: 'rgba(0,0,0,0.9)' }}>
         <div style={wrap()}>
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 40, marginBottom: 40 }}>
             <div>

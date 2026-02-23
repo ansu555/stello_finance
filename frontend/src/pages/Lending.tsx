@@ -90,7 +90,7 @@ export default function Lending() {
         {/* Position Card */}
         <div className="glass rounded-2xl p-6 space-y-4">
           <div className="flex items-center gap-2">
-            <Shield className="w-5 h-5 text-primary-400" />
+            <Shield className="w-5 h-5 text-yellow-400" />
             <h3 className="text-sm font-semibold text-white">Your Position</h3>
           </div>
           {isLoading ? (
@@ -140,7 +140,7 @@ export default function Lending() {
                 onClick={() => { setActiveTab(tab); setAmount(''); setBorrowerAddress(''); clearError(); }}
                 className={`flex-1 py-2 rounded-md text-xs font-medium transition-all ${
                   activeTab === tab
-                    ? 'bg-primary-500/20 text-white border border-primary-500/30'
+                    ? 'bg-yellow-400/10 text-white border border-yellow-400/20'
                     : 'text-gray-400 hover:text-white'
                 }`}
               >
@@ -218,7 +218,7 @@ export default function Lending() {
       {/* Info */}
       <div className="glass rounded-2xl p-6 space-y-4">
         <div className="flex items-center gap-2">
-          <TrendingUp className="w-5 h-5 text-primary-400" />
+          <TrendingUp className="w-5 h-5 text-yellow-400" />
           <h3 className="text-sm font-semibold text-white">How Lending Works</h3>
         </div>
         <div className="space-y-3 text-sm text-gray-400">
