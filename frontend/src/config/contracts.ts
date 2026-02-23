@@ -9,11 +9,10 @@ export const NETWORK = {
 export const CONTRACTS = {
   // Deployed to mainnet ✅
   sxlmToken: import.meta.env.VITE_SXLM_TOKEN_CONTRACT_ID || 'CCGFHMW3NZD5Z7ATHYHZSEG6ABCJADUHP5HIAWFPR37CP4VGNEDQO7FJ',
-  // Pending deployment — will be updated after mainnet deploy
-  staking: import.meta.env.VITE_STAKING_CONTRACT_ID || '',
-  lending: import.meta.env.VITE_LENDING_CONTRACT_ID || '',
-  lpPool: import.meta.env.VITE_LP_POOL_CONTRACT_ID || '',
-  governance: import.meta.env.VITE_GOVERNANCE_CONTRACT_ID || '',
+  staking: import.meta.env.VITE_STAKING_CONTRACT_ID || 'CAL6OVVWJ46NMKNR6JZUJAMUX73XPNOWDL6LQCFEJA6I4CEFARBFBJPN',
+  lending: import.meta.env.VITE_LENDING_CONTRACT_ID || 'CBLSH6RCUQXZ25GKG7JWQQSPAY7UNGQIH3ZEORED3KK35HFKIOYBIJ22',
+  lpPool: import.meta.env.VITE_LP_POOL_CONTRACT_ID || 'CASHMLU3J4G7KURKMKWIS2EO7IYWOP3OSM2NFRGNI7Y6WO2FR5L3KG2I',
+  governance: import.meta.env.VITE_GOVERNANCE_CONTRACT_ID || 'CB7LV3FBQ7US26GVC7SM7RMX22IEEHAEUL7V3TDDWM32DHA5TDFDDEP4',
 } as const;
 
 export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
